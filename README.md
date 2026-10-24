@@ -5,7 +5,7 @@
 [![Abrir no navegador](https://img.shields.io/badge/%F0%9F%8C%90%20Abrir%20no%20navegador-1f4fd8?style=for-the-badge)](https://wsleyweber.github.io/pseudocodigo/)
 
 ![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-2f9e44?style=flat-square)
-![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white)
+![Node.js 24+](https://img.shields.io/badge/Node.js-24%2B-339933?style=flat-square&logo=node.js&logoColor=white)
 ![Portugol](https://img.shields.io/badge/portugol-pseudoc%C3%B3digo-862e9c?style=flat-square)
 
 </div>
@@ -37,7 +37,7 @@ Você escreve o algoritmo e executa no navegador ou no terminal, com `LEIA` inte
 | Quero... | Faça isto |
 |---|---|
 | **Usar no navegador** | Acesse [wsleyweber.github.io/pseudocodigo](https://wsleyweber.github.io/pseudocodigo/) |
-| **Usar no terminal / Visual Studio Code** | Baixe o `pseudo-cli.js` (veja abaixo). Precisa do [Node.js 18+](https://nodejs.org/pt-br/download) |
+| **Usar no terminal / Visual Studio Code** | Baixe o `pseudo-cli.js` (veja abaixo). Precisa do [Node.js 24+](https://nodejs.org/pt-br/download) |
 
 ---
 

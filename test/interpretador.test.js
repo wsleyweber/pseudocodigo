@@ -2,7 +2,16 @@
 
 const test = require('node:test');
 const assert = require('node:assert');
-const { executar, PseudoError } = require('../src');
+const { executar, PseudoError, formatarErro } = require('../src');
+
+test('formatarErro escapa controles de terminal vindos da mensagem e do código', () => {
+  const erro = new PseudoError('Erro \u001b', 'entrada \u0007', 1, 2);
+  const formatado = formatarErro(erro, '#\u001b[2J\u009b31m\u202e');
+
+  assert.match(formatado, /Erro \\u001b \(linha 1, coluna 2\): entrada \\u0007/);
+  assert.match(formatado, /#\\u001b\[2J\\u009b31m\\u202e/);
+  assert.doesNotMatch(formatado.replace(/\n/g, ''), /[\u0000-\u001F\u007F-\u009F\u2028\u2029\u202A-\u202E\u2066-\u2069]/);
+});
 
 async function rodar(fonte, entradas = [], opcoes = {}) {
   const saida = [];

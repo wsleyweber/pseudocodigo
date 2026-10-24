@@ -11,6 +11,6 @@
     "build:web": "node scripts/build-web.js",
     "build:cli": "node scripts/build-cli.js"
   },
-  "engines": { "node": ">=18" },
+  "engines": { "node": ">=24" },
   "license": "MIT"
 }
