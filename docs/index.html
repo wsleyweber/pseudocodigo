@@ -5,56 +5,77 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
 <title>Pseudocódigo > JS</title>
 <meta name="description" content="Escreva seus algoritmos e execute no navegador.">
 <style>
 :root {
-  --fundo: #e9f0f5;
-  --papel: #f7fafc;
-  --pauta: #d6e5ee;
-  --margem: #e0525e;
-  --tinta: #1d2b4f;
-  --tinta-suave: #55658a;
-  --borda: #c2d1dd;
-  --acento: #1f4fd8;
-  --acento-texto: #ffffff;
-  --lousa: #1e2b28;
-  --giz: #eef1e8;
-  --giz-suave: #9fb0a6;
-  --giz-amarelo: #f2d16b;
-  --giz-rosa: #ff9aa2;
-  --giz-laranja: #ffb86b;
+  /* superfícies */
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
+  --line: #e4e7ec;
+  --line-strong: #cdd3dc;
+  /* texto */
+  --text: #1b2130;
+  --muted: #667085;
+  /* acento e estados */
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(79, 70, 229, .12);
+  --danger: #d92d20;
+  --ok: #12a150;
+  --warn: #d9920b;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .06);
+  /* saída (terminal) */
+  --term-bg: #10151d;
+  --term-text: #e6eaf2;
+  --term-muted: #8993a5;
+  --term-input: #f3d27a;
+  --term-err: #ff8f8f;
+  --term-warn: #ffc27d;
+  --term-borda: rgba(16, 21, 29, .9);
+  /* realce de sintaxe */
+  --c-kw: #5b3fd1;
+  --c-tipo: #0b7a75;
+  --c-fn: #1d6fb8;
+  --c-str: #b4541a;
+  --c-num: #b0305c;
+  --c-com: #6b7280;
 
-  --c-kw: #1f4fd8;
-  --c-tipo: #862e9c;
-  --c-fn: #1f7a35;
-  --c-str: #8a5a00;
-  --c-num: #0b7285;
-  --c-com: #5f6f92;
-
-  --sans: "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
-  --mono: "Cascadia Mono", "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
-  --fs: 15px;
-  --lh: 24px;
-  --pad: 12px;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
+  --fs: 14px;
+  --lh: 22px;
+  --pad: 14px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --fundo: #0e1322;
-    --papel: #151c30;
-    --pauta: #232f4d;
-    --tinta: #dbe3f7;
-    --tinta-suave: #9aa8c7;
-    --borda: #2b3757;
-    --acento: #7fa2ff;
-    --acento-texto: #0e1322;
-    --lousa: #121b19;
-    --c-kw: #8fb0ff;
-    --c-tipo: #d3a3f2;
-    --c-fn: #7fd99a;
-    --c-str: #f2c86b;
-    --c-num: #6fd3e6;
-    --c-com: #8c9ab8;
+    --bg: #0d1117;
+    --surface: #151b24;
+    --surface-2: #121820;
+    --line: #262e3a;
+    --line-strong: #364152;
+    --text: #e6edf3;
+    --muted: #8b95a7;
+    --accent: #818cf8;
+    --accent-hover: #9aa4ff;
+    --accent-ink: #0d1117;
+    --accent-soft: rgba(129, 140, 248, .16);
+    --danger: #ff7b72;
+    --ok: #3fb950;
+    --warn: #e3b341;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+    --term-bg: #0a0e14;
+    --term-borda: #2a3342;
+    --c-kw: #b69bff;
+    --c-tipo: #56d4c9;
+    --c-fn: #79b8ff;
+    --c-str: #f0a36b;
+    --c-num: #ff8fb1;
+    --c-com: #8b95a7;
   }
 }
 @media (max-width: 860px) {
@@ -66,9 +87,10 @@
 
 body {
   margin: 0;
-  background: var(--fundo);
-  color: var(--tinta);
+  background: var(--bg);
+  color: var(--text);
   font: 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -77,183 +99,264 @@ body {
 @media (min-width: 861px) {
   body { height: 100vh; height: 100dvh; }
 }
+.wrap { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: 24px; }
 
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
-
-/* ---------- topo e barra de ações ---------- */
-.topo {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
-  padding: 14px 20px 4px;
+/* ---------- topo ---------- */
+.topo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding-top: 20px; padding-bottom: 4px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 30px; height: 30px; border-radius: 9px; flex: none;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-ink);
 }
-.topo h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-.topo p { margin: 0; color: var(--tinta-suave); font-size: 14px; flex: 1 1 260px; }
-.topo a { color: var(--tinta-suave); font-size: 14px; }
-.topo a:hover { color: var(--acento); }
+.logo svg { width: 18px; height: 18px; }
+.topo h1 { margin: 0; font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+.topo h1 span { color: var(--muted); font-weight: 500; }
+.topo p { margin: 0; flex: 1 1 240px; color: var(--muted); font-size: 14px; }
+.github {
+  color: var(--muted); font-size: 13.5px; text-decoration: none;
+  padding: 5px 9px; margin-right: -9px; border-radius: 7px;
+  transition: color .12s, background-color .12s;
+}
+.github:hover { color: var(--text); background: var(--accent-soft); }
 
+/* ---------- barra de ações ---------- */
 .barra {
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px;
-  padding: 8px 20px 10px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 16px;
+  padding-top: 14px; padding-bottom: 16px;
 }
 .grupo { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 button, select {
-  font: inherit; font-size: 14px; color: var(--tinta);
-  height: 36px; padding: 0 14px;
-  border: 1px solid var(--borda); border-radius: 6px;
-  background: var(--papel); cursor: pointer; white-space: nowrap;
+  font: inherit; font-size: 13.5px; color: var(--text);
+  height: 34px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--surface);
+  box-shadow: var(--shadow); cursor: pointer;
+  transition: background-color .12s, border-color .12s, box-shadow .12s, transform .06s;
 }
-select { padding-right: 8px; max-width: 220px; }
-button:hover:not(:disabled), select:hover:not(:disabled) { border-color: var(--tinta-suave); }
-button:disabled, select:disabled { opacity: .5; cursor: default; }
-button.principal {
-  background: var(--acento); color: var(--acento-texto);
-  border-color: var(--acento); font-weight: 600;
+button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 0 13px; white-space: nowrap;
 }
-button.principal:hover:not(:disabled) { filter: brightness(1.08); border-color: var(--acento); }
+button svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+button:hover:not(:disabled), select:hover:not(:disabled) { border-color: var(--line-strong); background: var(--surface-2); }
+button:active:not(:disabled) { transform: translateY(1px); }
+button:disabled, select:disabled { opacity: .45; cursor: default; box-shadow: none; }
+button.principal { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+button.principal svg { fill: currentColor; stroke: none; }
+button.principal:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.seletor { position: relative; display: inline-block; }
+.seletor select {
+  -webkit-appearance: none; appearance: none;
+  padding: 0 34px 0 13px; max-width: 240px; text-overflow: ellipsis;
+}
+.seletor::after {
+  content: ""; position: absolute; right: 14px; top: 50%;
+  width: 6px; height: 6px; pointer-events: none;
+  border-right: 1.6px solid var(--muted); border-bottom: 1.6px solid var(--muted);
+  transform: translateY(-70%) rotate(45deg);
+}
 
 /* ---------- painéis ---------- */
 .paineis {
   flex: 1; min-height: 0;
-  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px;
-  padding: 0 20px 8px;
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px;
+  padding-bottom: 8px;
 }
 .painel { display: flex; flex-direction: column; min-height: 0; }
-.cab { display: flex; align-items: center; justify-content: space-between; margin: 0 0 6px; min-height: 22px; }
-.cab h2 { margin: 0; font-size: 14px; font-weight: 650; color: var(--tinta-suave); }
+.cab { display: flex; align-items: center; justify-content: space-between; min-height: 28px; margin: 0 2px 8px; }
+.cab h2 { margin: 0; font-size: 11.5px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
-.estado { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--tinta-suave); }
-.estado::before {
-  content: ""; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--ponto, #8a97b3);
+.estado {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; color: var(--muted);
+  padding: 3px 11px 3px 9px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
 }
-.estado[data-estado="executando"] { --ponto: #d99a00; }
-.estado[data-estado="entrada"] { --ponto: var(--acento); }
-.estado[data-estado="ok"] { --ponto: #2f9e44; }
-.estado[data-estado="erro"] { --ponto: var(--margem); }
+.estado::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ponto, #98a2b3);
+}
+.estado[data-estado="executando"] { --ponto: var(--warn); }
+.estado[data-estado="executando"]::before { animation: pulso 1.1s ease-in-out infinite; }
+.estado[data-estado="entrada"] { --ponto: var(--accent); }
+.estado[data-estado="ok"] { --ponto: var(--ok); }
+.estado[data-estado="erro"] { --ponto: var(--danger); }
+@keyframes pulso { 50% { opacity: .3; } }
 
-/* ---------- editor: caderno pautado ---------- */
+/* ---------- editor ---------- */
 .editor {
   flex: 1; min-height: 0; display: flex; overflow: hidden;
-  background: var(--papel); border: 1px solid var(--borda); border-radius: 6px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: var(--shadow);
   font: var(--fs) / var(--lh) var(--mono);
   font-variant-ligatures: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.editor:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 .numeros {
   flex: none; overflow: hidden; margin: 0;
   width: calc(var(--ndig, 2) * 1ch + 30px);
-  padding: var(--pad) 10px calc(var(--pad) + 80px) 0;
+  padding: var(--pad) 12px calc(var(--pad) + 80px) 0;
   text-align: right; white-space: pre; user-select: none;
-  color: var(--tinta-suave);
-  border-right: 2px solid var(--margem);
+  color: color-mix(in srgb, var(--muted) 75%, transparent);
+  background: var(--surface-2);
+  border-right: 1px solid var(--line);
   font: inherit;
 }
-.numeros .erro { color: var(--margem); font-weight: 700; }
+.numeros .erro { color: var(--danger); font-weight: 700; }
 .codigo { position: relative; flex: 1; min-width: 0; }
 
 .camada, .codigo textarea {
   position: absolute; inset: 0; margin: 0; border: 0;
-  padding: var(--pad) 14px calc(var(--pad) + 80px) 14px;
+  padding: var(--pad) 16px calc(var(--pad) + 80px) 16px;
   font: inherit; font-variant-ligatures: none;
   tab-size: 4; white-space: pre; word-wrap: normal; letter-spacing: normal;
 }
-.camada {
-  overflow: hidden; pointer-events: none; color: var(--tinta);
-  background-image: linear-gradient(to bottom, transparent calc(var(--lh) - 1px), var(--pauta) calc(var(--lh) - 1px));
-  background-size: 100% var(--lh);
-  background-attachment: local;
-  background-origin: content-box;
-  background-clip: padding-box;
-}
+.camada { overflow: hidden; pointer-events: none; color: var(--text); }
 .codigo textarea {
   overflow: auto; resize: none; outline: none;
   background: transparent; color: transparent; -webkit-text-fill-color: transparent;
-  caret-color: var(--tinta);
+  caret-color: var(--accent);
+  scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
 }
-.codigo textarea::selection { background: color-mix(in srgb, var(--acento) 30%, transparent); }
-.camada .p { color: var(--c-kw); font-weight: 700; }
-.camada .t { color: var(--c-tipo); font-weight: 700; }
+.codigo textarea::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+.camada .p { color: var(--c-kw); }
+.camada .t { color: var(--c-tipo); }
 .camada .f { color: var(--c-fn); }
 .camada .s { color: var(--c-str); }
 .camada .n { color: var(--c-num); }
 .camada .c { color: var(--c-com); font-style: italic; }
 .camada .marca {
   position: absolute; left: 0; width: 100000px; height: var(--lh);
-  background: color-mix(in srgb, var(--margem) 14%, transparent);
+  background: color-mix(in srgb, var(--danger) 11%, transparent);
+  box-shadow: inset 3px 0 0 var(--danger);
 }
 
-/* ---------- saída: lousa ---------- */
+/* ---------- saída ---------- */
 .lousa {
   flex: 1; min-height: 0; overflow: auto;
-  background: var(--lousa); color: var(--giz);
-  border-radius: 6px; padding: 12px 14px;
-  font: var(--fs) / 1.5 var(--mono);
+  background: var(--term-bg); color: var(--term-text);
+  border: 1px solid var(--term-borda); border-radius: 12px; box-shadow: var(--shadow);
+  padding: 14px 18px;
+  font: var(--fs) / 1.6 var(--mono);
+  scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .2) transparent;
 }
 .lousa:focus-visible { outline-offset: -2px; }
 .lousa pre { margin: 0; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
-.lousa pre:empty::before { content: attr(data-vazio); color: var(--giz-suave); font-family: var(--sans); }
-.lousa .e { color: var(--giz-rosa); }
-.lousa .i { color: var(--giz-amarelo); }
-.lousa .a { color: var(--giz-laranja); }
-.lousa .s { color: var(--giz-suave); }
-.entrada { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
-.entrada .seta { color: var(--giz-amarelo); }
+.lousa pre:empty::before {
+  content: attr(data-vazio); color: var(--term-muted);
+  font-family: var(--sans); font-size: 14px; line-height: 1.5;
+}
+.lousa .e { color: var(--term-err); }
+.lousa .i { color: var(--term-input); }
+.lousa .a { color: var(--term-warn); }
+.lousa .s { color: var(--term-muted); }
+.entrada { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.entrada .seta { color: var(--term-input); }
 .entrada input {
-  flex: 1; min-width: 0; font: inherit; color: var(--giz-amarelo);
-  background: transparent; border: 0; border-bottom: 1px dashed var(--giz-suave);
-  padding: 2px 0; outline: none;
+  flex: 1; min-width: 0; font: inherit; color: var(--term-input);
+  background: transparent; border: 0; border-bottom: 1px solid rgba(255, 255, 255, .2);
+  padding: 2px 0; outline: none; transition: border-color .12s;
 }
-.entrada input:focus { border-bottom-color: var(--giz-amarelo); }
+.entrada input::placeholder { color: var(--term-muted); }
+.entrada input:focus { border-bottom-color: var(--term-input); }
 .entrada button {
-  height: 28px; padding: 0 10px; font-size: 13px;
-  color: var(--giz); background: transparent; border-color: var(--giz-suave);
+  height: 28px; padding: 0 11px; font-size: 12.5px; box-shadow: none;
+  color: var(--term-text); background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .14);
 }
+.entrada button:hover:not(:disabled) { background: rgba(255, 255, 255, .13); border-color: rgba(255, 255, 255, .24); }
 
-.rodape { padding: 6px 20px 14px; font-size: 13px; color: var(--tinta-suave); }
-.rodape p { margin: 0; }
+/* ---------- rodapé ---------- */
+.rodape {
+  display: flex; flex-wrap: wrap; gap: 6px 20px;
+  padding-top: 8px; padding-bottom: 16px; font-size: 12.5px; color: var(--muted);
+}
+kbd {
+  font: 11.5px/1 var(--mono); color: var(--text);
+  padding: 2px 5px 1px; border: 1px solid var(--line-strong); border-bottom-width: 2px;
+  border-radius: 5px; background: var(--surface);
+}
+@media (hover: none) { .rodape { display: none; } }
 
 @media (max-width: 860px) {
-  .barra { gap: 8px; }
+  .wrap { padding-inline: 16px; }
+  .topo { padding-top: 16px; }
+  .topo p { display: none; }
+  .rodape { display: none; }
+  .github { margin-left: auto; }
+  .barra { gap: 10px; }
   .grupo.acoes { order: -1; width: 100%; }
   .grupo.acoes button { flex: 1 1 auto; }
   .grupo.acoes .principal { flex: 2 1 auto; }
   .grupo.arquivos { width: 100%; }
-  .grupo.arquivos select { flex: 1 1 100%; max-width: none; }
+  .grupo.arquivos .seletor { flex: 1 1 100%; }
+  .grupo.arquivos select { width: 100%; max-width: none; }
   .grupo.arquivos button { flex: 1; }
-  .paineis { grid-template-columns: 1fr; padding-bottom: 12px; }
+  .paineis { grid-template-columns: 1fr; padding-bottom: 16px; }
   .editor { height: 56vh; min-height: 280px; flex: none; }
   .lousa { height: 40vh; min-height: 200px; flex: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
 }
 </style>
 </head>
 <body>
 
-<header class="topo">
-  <h1>Pseudocódigo > JS</h1>
-  <p>Escreva seu algoritmo e execute pelo navegador.</p>
-  <a href="https://github.com/wsleyweber/pseudocodigo">Projeto no GitHub</a>
+<header class="topo wrap">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8.5 11.5 12 7 15.5"/><path d="M13.5 16h4"/></svg>
+    </span>
+    <h1>Pseudocódigo <span>JS</span></h1>
+  </div>
+  <p> </p>
+  <a class="github" href="https://github.com/wsleyweber/pseudocodigo">Projeto no GitHub</a>
 </header>
 
-<div class="barra" role="toolbar" aria-label="Ações">
+<div class="barra wrap" role="toolbar" aria-label="Ações">
   <div class="grupo arquivos">
-    <label class="visually-hidden" for="exemplos">Carregar um exemplo</label>
-    <select id="exemplos"><option value="">Carregar exemplo</option></select>
-    <button id="abrir" type="button">Abrir arquivo</button>
-    <button id="baixar" type="button">Baixar arquivo</button>
+    <div class="seletor">
+      <label class="visually-hidden" for="exemplos">Carregar um exemplo</label>
+      <select id="exemplos"><option value="">Carregar exemplo</option></select>
+    </div>
+    <button id="abrir" type="button" title="Abrir um arquivo do computador">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg>
+      Abrir
+    </button>
+    <button id="baixar" type="button" title="Baixar o algoritmo como arquivo .alg">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="M7.5 11 12 15.5 16.5 11"/><path d="M5 19.5h14"/></svg>
+      Baixar
+    </button>
     <input id="arquivo" type="file" accept=".alg,.txt,.md,text/plain" hidden>
   </div>
   <div class="grupo acoes">
-    <button id="verificar" type="button">Verificar erros</button>
-    <button id="parar" type="button" disabled>Parar</button>
-    <button id="executar" type="button" class="principal" title="Atalho: Ctrl+Enter">Executar</button>
+    <button id="verificar" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5"/></svg>
+      Verificar erros
+    </button>
+    <button id="parar" type="button" disabled>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/></svg>
+      Parar
+    </button>
+    <button id="executar" type="button" class="principal" title="Atalho: Ctrl+Enter">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5.5v13a.6.6 0 0 0 .9.5l10.6-6.5a.6.6 0 0 0 0-1L7.9 5a.6.6 0 0 0-.9.5z"/></svg>
+      Executar
+    </button>
   </div>
 </div>
 
-<main class="paineis">
+<main class="paineis wrap">
   <section class="painel" aria-labelledby="t-codigo">
     <div class="cab"><h2 id="t-codigo">Algoritmo</h2></div>
     <div class="editor">
@@ -272,7 +375,7 @@ button.principal:hover:not(:disabled) { filter: brightness(1.08); border-color: 
       <span class="estado" id="estado" data-estado="pronto" role="status">Pronto</span>
     </div>
     <div class="lousa" id="lousa" role="log" aria-live="polite" tabindex="0">
-      <pre id="saida" data-vazio="A saída do programa aparece aqui. Clique em 'Executar' para executar ou pressione 'Ctrl + Enter'."></pre>
+      <pre id="saida" data-vazio="A saída do programa aparece aqui. Clique em Executar para começar."></pre>
       <form class="entrada" id="form-entrada" hidden>
         <span class="seta" aria-hidden="true">&rsaquo;</span>
         <input id="campo-entrada" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"
@@ -283,6 +386,13 @@ button.principal:hover:not(:disabled) { filter: brightness(1.08); border-color: 
   </section>
 </main>
 
+<footer class="rodape wrap">
+  <span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> executa</span>
+  <span><kbd>Tab</kbd> recua o texto</span>
+  <span><kbd>Shift</kbd> + <kbd>Tab</kbd> desfaz o recuo</span>
+  <span><kbd>Esc</kbd> e depois <kbd>Tab</kbd> sai do editor</span>
+</footer>
+
 <script src="pseudo.js"></script>
 <script>
 (function () {
@@ -290,6 +400,25 @@ button.principal:hover:not(:disabled) { filter: brightness(1.08); border-color: 
 
   var P = window.Pseudo;
   var $ = function (id) { return document.getElementById(id); };
+
+  // O interpretador (pseudo.js) é gerado por "npm run build:web" e precisa estar na mesma pasta
+  // do index.html. Se não carregou, explica o que fazer em vez de quebrar com um erro de script.
+  if (!P) { falhaDeCarga(); return; }
+
+  function falhaDeCarga() {
+    var msg = 'Não foi possível carregar o interpretador (pseudo.js).\n\n' +
+      'Esse arquivo é gerado pelo build e não faz parte do código-fonte. Na pasta do projeto, rode:\n\n' +
+      '    npm run build:web\n\n' +
+      'Depois abra docs/index.html mantendo o pseudo.js na mesma pasta' +
+      (location.protocol === 'file:' ? ' (de preferência por um servidor local, por exemplo: npx serve docs).' : '.');
+    var span = document.createElement('span');
+    span.className = 'e';
+    span.textContent = msg;
+    $('saida').appendChild(span);
+    $('estado').textContent = 'Interpretador não carregado';
+    $('estado').dataset.estado = 'erro';
+    ['executar', 'verificar', 'parar', 'abrir', 'baixar', 'exemplos'].forEach(function (id) { $(id).disabled = true; });
+  }
 
   var CHAVE = 'pseudocodigo-js:programa';
   var MAX_ITERACOES = 2000000;   // mais baixo que o do terminal: um laço infinito é detectado em ~1 s
