@@ -37,41 +37,29 @@ Você escreve o algoritmo e executa no navegador ou no terminal, com `LEIA` inte
 | Quero... | Faça isto |
 |---|---|
 | **Usar no navegador** | Acesse [wsleyweber.github.io/pseudocodigo](https://wsleyweber.github.io/pseudocodigo/) |
-| **Usar no terminal / Visual Studio Code** | Baixe o `pseudo-cli.js` (veja abaixo). Precisa do [Node.js 24+](https://nodejs.org/pt-br/download) |
+| **Usar no terminal / Visual Studio Code** | `npm install -g pseudocodigo-js`. Precisa do [Node.js 24+](https://nodejs.org/pt-br/download) |
 
 ---
 
-## Usar no terminal (Visual Studio Code)
+## Usar no terminal / Visual Studio Code
 
 **1. Crie uma pasta** para os seus algoritmos e abra-a no Visual Studio Code (*Arquivo → Abrir Pasta*).
 
-**2. Baixe o interpretador** uma única vez. Abra o terminal do Visual Studio Code (*Terminal → Novo Terminal*) e rode:
+**2. Baixe o pacote**. Abra o terminal do Visual Studio Code (*Terminal → Novo Terminal*) e rode:
 
 ```powershell
-irm https://wsleyweber.github.io/pseudocodigo/pseudo-cli.js -OutFile pseudo-cli.js
+npm install -g pseudocodigo-js
 ```
 
-No Linux, Mac ou Git Bash:
-
-```bash
-curl -O https://wsleyweber.github.io/pseudocodigo/pseudo-cli.js
-```
-
-> 💡 O `irm` só existe no PowerShell (o terminal padrão do Visual Studio Code no Windows). No Prompt de Comando (`cmd`),
-> abra o endereço acima no navegador e salve o arquivo na sua pasta com **Salvar como**.
-
-> ⚠️ **IMPORTANTE:** Se houver atualizações no interpretador é necessário repetir o passo 2 para baixar a nova versão (o arquivo antigo é substituído).
+> ⚠️ **IMPORTANTE:** Se houver atualizações no pacote é necessário baixar a nova versão rodando `npm update -g pseudocodigo.js`.
 
 **3. Crie o seu algoritmo**, por exemplo `meualgoritmo.alg`, na mesma pasta, e escreva o código nele.
 
 **4. Execute:**
 
 ```
-node pseudo-cli.js meualgoritmo.alg
+pseudo meualgoritmo.alg
 ```
-
-Se aparecer `'node' não é reconhecido`, o Node.js não está instalado, ou o VS Code precisa ser fechado e
-aberto de novo depois da instalação.
 
 ### Opções
 
@@ -81,7 +69,7 @@ aberto de novo depois da instalação.
 | `--sem-avisos` | Não mostra os avisos pedagógicos |
 | `--max-iteracoes <n>` | Limite de repetições contra laços infinitos (padrão 10000000; 0 = sem limite) |
 
-Exemplo: `node pseudo-cli.js --verificar meu.alg`. Para interromper um programa a qualquer momento, use `Ctrl+C`.
+Exemplo: `pseudo meualgoritmo.alg --verificar`. Para interromper um programa a qualquer momento, use `Ctrl+C`.
 
 ### Customizações (opcional)
 
@@ -98,7 +86,7 @@ Para facilitar e permitir executar o arquivo aberto com **Ctrl + Shift + B**, cr
     {
       "label": "Executar algoritmo",
       "type": "shell",
-      "command": "node pseudo-cli.js \"${file}\"",
+      "command": "pseudo \"${file}\"",
       "group": { "kind": "build", "isDefault": true },
       "presentation": { "reveal": "always", "panel": "shared", "focus": true }
     }
@@ -109,7 +97,7 @@ Para facilitar e permitir executar o arquivo aberto com **Ctrl + Shift + B**, cr
 #### Extensão para realçar sintaxe
 
 Permite ver as palavras reservadas, tipos e comentários coloridos nos arquivos `.alg`. Instale da seguinte forma:
-1. Baixe o arquivo **pseudocodigo.vsix** na [página de Releases](https://github.com/wsleyweber/pseudocodigo/releases/latest/download/pseudocodigo.vsix).
+1. Baixe o arquivo **pseudocodigo.vsix** na [página de Releases](https://github.com/wsleyweber/pseudocodigo/releases/tag/extensao-v1.0.0).
 2. No Visual Studio Code, abra a aba **Extensões** (`Ctrl + Shift + X`).
 3. Clique nos três pontinhos (**...**) no topo do painel → **Instalar do VSIX...**
 4. Escolha o arquivo baixado e recarregue o VS Code, se pedir.
@@ -297,4 +285,4 @@ com laço infinito, e `Ctrl+C` interrompe a qualquer momento.
 ## Contribuir
 
 O projeto é de código aberto (licença MIT). Quer entender como o interpretador funciona, corrigir algo ou
-sugerir uma melhoria? Veja o [CONTRIBUTE.md](CONTRIBUTE.md).
+sugerir uma melhoria? Veja o [CONTRIBUTION.md](CONTRIBUTION.md).

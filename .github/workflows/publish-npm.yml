@@ -1,0 +1,38 @@
+name: Publicar no npm
+
+# Publica uma nova versão quando uma tag "vX.Y.Z" é enviada ao GitHub (ex.: v1.0.1).
+# Tags da extensão ("extensao-v...") não disparam este fluxo.
+on:
+  push:
+    tags: ['v[0-9]*']
+
+permissions:
+  contents: read
+  id-token: write   # necessário para a publicação confiável (sem token guardado)
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Conferir se a tag bate com a versão do package.json
+        run: |
+          VERSAO_TAG="${GITHUB_REF_NAME#v}"
+          VERSAO_PKG="$(node -p "require('./package.json').version")"
+          echo "tag: $VERSAO_TAG | package.json: $VERSAO_PKG"
+          if [ "$VERSAO_TAG" != "$VERSAO_PKG" ]; then
+            echo "A tag ($VERSAO_TAG) é diferente da versão do package.json ($VERSAO_PKG)."
+            exit 1
+          fi
+
+      - name: Testes
+        run: npm test
+
+      - name: Publicar
+        run: npm publish

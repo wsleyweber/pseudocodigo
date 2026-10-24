@@ -4,7 +4,7 @@ Este guia é para quem quer **mexer no código** do interpretador. Para apenas u
 
 ## Preparar o ambiente
 
-Precisa do [Node.js 18+](https://nodejs.org/pt-br/download) e do Git. Não há dependências para instalar.
+Precisa do [Node.js 24+](https://nodejs.org/pt-br/download) e do Git. Não há dependências para instalar.
 
 ```bash
 git clone https://github.com/wsleyweber/pseudocodigo.git
@@ -20,7 +20,6 @@ node bin/pseudo.js meu_codigo.txt         # qualquer extensão serve (.alg, .txt
 node bin/pseudo.js --verificar prog.alg   # só confere erros e avisos, sem executar
 npm test                                  # testes automatizados
 npm run build:web                         # gera docs/pseudo.js (a página web)
-npm run build:cli                         # gera docs/pseudo-cli.js (arquivo único para o terminal)
 ```
 
 ## Estrutura do interpretador
@@ -43,7 +42,6 @@ exemplos/             programas prontos (também aparecem na lista da página we
 test/                 testes (node:test)
 scripts/
   build-web.js        empacota src/ + exemplos/ em docs/pseudo.js
-  build-cli.js        empacota src/ + bin/ em docs/pseudo-cli.js
 docs/index.html       página web (editor, botões, entrada/saída no navegador)
 .github/workflows/    publicação automática no GitHub Pages
 ```
@@ -59,10 +57,9 @@ Os arquivos de `src/` usam `require`, que o navegador não entende. Por isso doi
 único arquivo cada:
 
 * `npm run build:web` gera `docs/pseudo.js`, usado pela página;
-* `npm run build:cli` gera `docs/pseudo-cli.js`, o arquivo que os usuários baixam para rodar no terminal.
 
-Esses dois arquivos **não ficam no repositório** (estão no `.gitignore`): são gerados a cada publicação.
-Para testar a página no seu computador, rode os comandos acima e abra `docs/index.html`.
+Esse arquivo **não fica no repositório** (está no `.gitignore`): é gerado a cada publicação.
+Para testar a página no seu computador, rode o comando acima e abra `docs/index.html`.
 
 **Regra para a versão web continuar funcionando:** os módulos de `src/` (exceto `src/io.js`) não podem usar
 módulos do Node (`fs`, `readline`, `process`...). O `build:web` avisa se isso acontecer. A entrada/saída do
@@ -73,7 +70,7 @@ terminal fica em `src/io.js` e a da página em `docs/index.html`.
 A publicação é feita pelo **GitHub Actions** (`.github/workflows/pages.yml`). A cada push na `main`, o fluxo:
 
 1. roda `npm test` (se algum teste falhar, **nada é publicado** e a página anterior continua no ar);
-2. gera `docs/pseudo.js` e `docs/pseudo-cli.js`;
+2. gera `docs/pseudo.js`;
 3. publica a pasta `docs/` no GitHub Pages.
 
 Configuração necessária no repositório, uma única vez: em *Settings → Pages → Build and deployment → Source*,

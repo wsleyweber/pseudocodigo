@@ -1,6 +1,5 @@
 node_modules/
 *.log
 docs/pseudo.js
-docs/pseudo-cli.js
 .agents/
 skills-lock.json

@@ -33,7 +33,6 @@ jobs:
       - name: Gerar arquivos da versão web
         run: |
           npm run build:web
-          npm run build:cli --if-present
 
       - uses: actions/configure-pages@v5
 
