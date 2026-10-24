@@ -7,6 +7,7 @@
 ![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-2f9e44?style=flat-square)
 ![Node.js 24+](https://img.shields.io/badge/Node.js-24%2B-339933?style=flat-square&logo=node.js&logoColor=white)
 ![Portugol](https://img.shields.io/badge/portugol-pseudoc%C3%B3digo-862e9c?style=flat-square)
+[![npm](https://img.shields.io/npm/v/pseudocodigo-js?style=flat-square)](https://www.npmjs.com/package/pseudocodigo-js)
 
 </div>
 
