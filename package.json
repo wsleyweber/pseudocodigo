@@ -1,8 +1,8 @@
 {
   "name": "pseudocodigo-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Interpretador de pseudocódigo (portugol) em Node.js para o ensino de lógica de programação",
-   "keywords": [
+  "keywords": [
     "portugol",
     "pseudocodigo",
     "interpretador",
@@ -21,7 +21,9 @@
   "author": "Wesley Weber",
   "license": "MIT",
   "main": "src/index.js",
-  "bin": { "pseudo": "bin/pseudo.js" },
+  "bin": {
+    "pseudo": "bin/pseudo.js"
+  },
   "files": [
     "bin/",
     "src/"
@@ -32,6 +34,10 @@
     "test": "node --test test/interpretador.test.js test/recursos.test.js",
     "build:web": "node scripts/build-web.js"
   },
-  "engines": { "node": ">=24" },
-  "publishConfig": { "access": "public" }
+  "engines": {
+    "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
