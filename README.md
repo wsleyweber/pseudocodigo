@@ -54,7 +54,7 @@ Você escreve o algoritmo e executa no navegador ou no terminal, com `LEIA` inte
 npm install -g pseudocodigo-js
 ```
 
-> ⚠️ **IMPORTANTE:** Seu sistema pode não permitir que o comando funcione pois bloqueia por padrão a execução de scripts locais. Para resolver, digite no terminal `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` e aguarde alguns segundos.
+> ⚠️ **IMPORTANTE:** Seu sistema pode não permitir que o comando funcione pois bloqueia por padrão a execução de scripts locais. Para resolver, rode no terminal `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` e aguarde alguns segundos.
 
 **3. Crie o seu algoritmo**, por exemplo `meualgoritmo.alg`, na mesma pasta, e escreva o código nele.
 
