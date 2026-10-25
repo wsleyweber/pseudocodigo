@@ -42,9 +42,11 @@ Você escreve o algoritmo e executa no navegador ou no terminal, com `LEIA` inte
 
 ---
 
-## Usar no terminal / Visual Studio Code
+## Usar no terminal (Visual Studio Code)
 
-**1. Crie uma pasta** para os seus algoritmos e abra-a no Visual Studio Code (*Arquivo → Abrir Pasta*).
+**1. Baixe e instale o [Node.js](https://nodejs.org/pt-br/download)**.
+
+**2. Crie uma pasta** para os seus algoritmos e abra-a no Visual Studio Code (*Arquivo → Abrir Pasta*).
 
 **2. Baixe o pacote**. Abra o terminal do Visual Studio Code (*Terminal → Novo Terminal*) e rode:
 
@@ -52,7 +54,7 @@ Você escreve o algoritmo e executa no navegador ou no terminal, com `LEIA` inte
 npm install -g pseudocodigo-js
 ```
 
-> ⚠️ **IMPORTANTE:** Se houver atualizações no pacote é necessário baixar a nova versão rodando `npm update -g pseudocodigo.js`.
+> ⚠️ **IMPORTANTE:** Seu sistema pode não permitir que o comando funcione pois bloqueia por padrão a execução de scripts locais. Para resolver, digite no terminal `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` e aguarde alguns segundos.
 
 **3. Crie o seu algoritmo**, por exemplo `meualgoritmo.alg`, na mesma pasta, e escreva o código nele.
 
