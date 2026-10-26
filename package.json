@@ -1,6 +1,6 @@
 {
   "name": "pseudocodigo-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Interpretador de pseudocódigo (portugol) em Node.js para o ensino de lógica de programação",
   "keywords": [
     "portugol",
