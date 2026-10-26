@@ -382,7 +382,7 @@ class Interpretador {
       }
       default: throw this.erro(`Operador desconhecido '${no.op}'.`, no);
     }
-    if (!Number.isFinite(r)) throw this.erro(`O resultado de '${no.op}' não é um número válido.`, no);
+    if (!Number.isFinite(r)) throw this.erro(`O resultado de '${no.simbolo ?? no.op}' não é um número válido.`, no);
     return r;
   }
 

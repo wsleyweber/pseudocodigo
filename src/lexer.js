@@ -3,7 +3,7 @@
 const { PseudoError } = require('./erros');
 const { normalizar, RESERVADAS, NOMES_FUNCOES } = require('./palavras');
 
-const OPS_DOIS = ['<-', ':=', '<>', '<=', '>=', '!=', '==', '++', '--', '+=', '-=', '*=', '/=', '..'];
+const OPS_DOIS = ['<-', ':=', '<>', '<=', '>=', '!=', '==', '++', '--', '**', '+=', '-=', '*=', '/=', '..'];
 const OPS_UM = '+-*/^%(),;:=<>[]';
 
 /**

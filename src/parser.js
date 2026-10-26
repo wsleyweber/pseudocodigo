@@ -517,9 +517,9 @@ class Parser {
 
   potencia() {
     const base = this.primario();
-    if (this.ehOp('^')) {
+    if (this.ehOp('^', '**')) { // '^' e '**' são a mesma operação (potência)
       const op = this.avancar();
-      return { tipo: 'Binario', op: '^', esq: base, dir: this.unario(), linha: op.linha, col: op.col }; // associa à direita
+      return { tipo: 'Binario', op: '^', simbolo: op.valor, esq: base, dir: this.unario(), linha: op.linha, col: op.col }; // associa à direita
     }
     return base;
   }

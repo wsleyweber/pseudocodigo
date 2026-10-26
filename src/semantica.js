@@ -165,7 +165,7 @@ function analisar(programa) {
         throw erro(`O operador '+' só funciona entre dois números ou entre dois textos ${ambos}. Use PARA_TEXTO() para converter.`, no);
       case '-': case '*': case '^':
         if (a === 'numero' && b === 'numero') return 'numero';
-        throw erro(`O operador '${no.op}' só funciona entre números ${ambos}.`, no);
+        throw erro(`O operador '${no.simbolo ?? no.op}' só funciona entre números ${ambos}.`, no);
       case '/': case 'DIV': case 'MOD':
         if (a === 'numero' && b === 'numero') {
           if (no.dir.tipo === 'Num' && no.dir.valor === 0) aviso('Divisão por zero: o programa vai parar com erro ao executar esta conta.', no);
