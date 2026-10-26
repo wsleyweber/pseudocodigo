@@ -159,14 +159,14 @@ Em `LOGICOS` vale `verdadeiro/falso`, `v/f`, `sim/nao`.
 ### Operadores
 
 * Atribuição: `<-` (ou `:=`); também `i++`, `i--`, `+=`, `-=`, `*=`, `/=`.
-* Aritméticos: `+ - * / ^` (potência), `DIV` (divisão inteira), `MOD` ou `%` (resto).
+* Aritméticos: `+ - * /`, `^` ou `**` (potência: `2 ** 3` e `2 ^ 3` valem 8), `DIV` (divisão inteira), `MOD` ou `%` (resto).
   `+` também junta textos.
 * Relacionais: `=  <>  <  >  <=  >=` (também `==` e `!=`).
 * Lógicos: `E`, `OU`, `NAO` (com curto-circuito).
-* Precedência (do menor para o maior): `OU` < `E` < `NAO` < relacionais < `+ -` < `* / DIV MOD` < `-` unário < `^`.
+* Precedência (do menor para o maior): `OU` < `E` < `NAO` < relacionais < `+ -` < `* / DIV MOD` < `-` unário < `^` / `**` (a potência associa da direita para a esquerda: `2 ** 3 ** 2` = 2 ** 9).
   Use parênteses na dúvida.
 
-> ⚠️ Atenção: `i<-1` é lido como atribuição. Para comparar com um negativo escreva `i < -1`.
+> Atenção: `i<-1` é lido como atribuição. Para comparar com um negativo escreva `i < -1`.
 
 ### Estruturas
 

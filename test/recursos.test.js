@@ -62,6 +62,34 @@ test('CONSTANTE: valor, uso em tamanho de vetor e proteção contra alteração'
   assert.match((await falha(prog('DECLARE X : INTEIRO;\nCONSTANTE N : INTEIRO <- X;', ''))).message, /CONSTANTE/);
 });
 
+// ---------- potência: ^ e ** ----------
+test('** é potência, igual a ^ (precedência e associação à direita)', async () => {
+  const src = prog('DECLARE A, B : NUMERICO;', `
+    A <- 3; B <- 4;
+    ESCREVA(2 ** 3, 2**3, 2 ^ 3, 2 ** 3 ** 2, 2 ^ 3 ** 2, 2 ** 3 ^ 2);
+    ESCREVA(-2 ** 2, (-2) ** 2, 2 ** -1, 2 * 3 ** 2, 2 ** 3 * 2, 10 - 2 ** 2);
+    ESCREVA(SQRT(A ** 2 + B ** 2), A ** 2 + B ** 2, 2 ** 0.5 > 1.41);`);
+  assert.strictEqual(await rodar(src), '8 8 8 512 512 512\n-4 4 0.5 18 16 6\n5 25 VERDADEIRO\n');
+});
+
+test('o * simples e as formas compostas continuam funcionando', async () => {
+  const src = prog('DECLARE X : NUMERICO;', 'X <- 3 * 2; X *= 2; X <- X *2; ESCREVA(X, 6*7, 2 * 3 ** 2);');
+  assert.strictEqual(await rodar(src), '24 42 18\n');
+});
+
+test('erros de ** mostram o símbolo escrito pelo aluno', async () => {
+  const d = 'DECLARE T : CARACTERES; N : NUMERICO;';
+  assert.match((await falha(prog(d, 'N <- 2 ** T;'))).message, /operador '\*\*'/);
+  assert.match((await falha(prog(d, 'N <- 2 ^ T;'))).message, /operador '\^'/);
+  assert.match((await falha(prog(d, 'N <- 10 ** 400;'))).message, /'\*\*'.*não é um número válido/);
+  assert.match((await falha(prog(d, 'N <- 2 ** ;'))).message, /Esperava um valor/);
+});
+
+test('/** ... **/ em comentário de bloco não confunde o ** do lexer', async () => {
+  const src = prog('DECLARE X : INTEIRO;', '/** comentário **/ X <- 2 ** 2; /* ** */ ESCREVA(X);');
+  assert.strictEqual(await rodar(src), '4\n');
+});
+
 // ---------- funções e procedimentos ----------
 const FUNCOES = `
 FUNCAO FAT(N : INTEIRO) : INTEIRO
