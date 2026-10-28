@@ -106,7 +106,7 @@ class Interpretador {
     return idx;
   }
 
-  async atribuir(alvo, valor) {
+  async atribuir(alvo, valor, indicesCalculados = null) {
     const info = this.achar(alvo);
     if (!TIPOS_INFO[info.tipo].aceita(valor)) {
       const dica = info.tipo === 'INTEIRO' && typeof valor === 'number'
@@ -117,7 +117,7 @@ class Interpretador {
       );
     }
     if (alvo.tipo === 'Indice') {
-      const idx = await this.calcularIndices(alvo);
+      const idx = indicesCalculados ?? await this.calcularIndices(alvo);
       info.dados[this.posicao(alvo, info, idx)] = valor;
     } else {
       info.valor = valor;
@@ -154,9 +154,18 @@ class Interpretador {
         return undefined;
       }
       case 'Leia': await this.leia(no); return undefined;
-      case 'Atribuicao':
+      case 'Atribuicao': {
+        if (no.alvo.tipo === 'Indice' && no.valor.tipo === 'Binario' && no.valor.esq === no.alvo) {
+          const indices = await this.calcularIndices(no.alvo);
+          const anterior = this.lerCelula(no.alvo, indices);
+          const direita = await this.av(no.valor.dir);
+          const valor = this.aplicarBinario(no.valor, anterior, direita);
+          await this.atribuir(no.alvo, valor, indices);
+          return undefined;
+        }
         await this.atribuir(no.alvo, await this.av(no.valor));
         return undefined;
+      }
       case 'Se': {
         for (const r of no.ramos) {
           if (await this.condicao(r.cond)) return this.bloco(r.corpo);

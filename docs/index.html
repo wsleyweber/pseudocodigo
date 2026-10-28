@@ -740,6 +740,7 @@ kbd {
 
     P.executar(fonte, criarES(controlador, estado), { sinal: controlador.signal, maxIteracoes: MAX_ITERACOES })
       .then(function () {
+        if (estado.cortado) { definirEstado('erro'); return; }
         acrescentar(separador() + 'Programa finalizado.\n', 's');
         definirEstado('ok');
       })

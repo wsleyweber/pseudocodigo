@@ -281,6 +281,21 @@ test('+=, -=, *=, /= e atribuição composta em posição de vetor', async () =>
   assert.strictEqual(await rodar(src), '6 6\n');
 });
 
+test('índice em atribuição composta é avaliado uma única vez', async () => {
+  const extra = `
+FUNCAO PROXIMO() : INTEIRO
+INICIO
+  CONTADOR <- CONTADOR + 1;
+  RETORNE CONTADOR;
+FIMFUNCAO`;
+  const src = prog(
+    'DECLARE CONTADOR : INTEIRO; V : VETOR[2] DE INTEIRO;',
+    'CONTADOR <- 0; V[1] <- 5; V[2] <- 20; V[PROXIMO()] += 10; V[PROXIMO()]++; ESCREVA(CONTADOR, V[1], V[2]);',
+    extra,
+  );
+  assert.strictEqual(await rodar(src), '2 15 21\n');
+});
+
 test('erros de sintaxe comuns têm mensagens claras', async () => {
   assert.match((await falha(prog('DECLARE X : INTEIRO;', 'SE (X > 1) ESCREVA(1); FIMSE'))).message, /Esperava ENTAO/);
   assert.match((await falha(prog('DECLARE X : INTEIRO;', 'ESCREVA("a);'))).message, /aspas/);
